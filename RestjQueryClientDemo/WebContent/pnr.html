@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>PNR status</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+//logically similar to main method in java
+//this function will be called when the DOM has been created for this page
+$(function(){
+	$("button").click(function(evt){
+		evt.preventDefault();
+		//alert("chala chala");
+		//alert(document.getElementById("pnr").value)
+		var pnrNo=$("#pnr").val();
+		/* alert(pnrNo); */
+		var url="http://localhost:9090/RestDemo/app/pnr?pnrNo="+pnrNo;
+		$.ajax({
+			url:url,
+			method:'GET',
+			success:function(response){
+				//alert(JSON.stringify(response));
+				//alert(response.travelDate);
+				var elemrnt1=$("<p/>").text("Travel Date : "+response.travelDate);
+				$("#result").append(elemrnt1);
+			}
+		})
+	})
+})
+</script>
+</head>
+<body>
+	<h2>Welcome to Breakmytrip.com</h2>
+	<h3>Our mission,Or Aim:No sutta abhiyan</h3>
+	<form>
+		enter PNR No:<input type="text" id="pnr"><br />
+		<button>Show Status</button>
+	</form>
+	
+	<div id="result">
+	</div>
+</body>
+</html>
